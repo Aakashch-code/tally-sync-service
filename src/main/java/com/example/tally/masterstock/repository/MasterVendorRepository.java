@@ -1,6 +1,6 @@
-package com.example.tally.mastermodule.repository;
+package com.example.tally.masterstock.repository;
 
-import com.example.tally.mastermodule.entity.MasterVendor;
+import com.example.tally.masterstock.entity.MasterVendor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

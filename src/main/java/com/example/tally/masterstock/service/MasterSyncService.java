@@ -1,7 +1,7 @@
-package com.example.tally.mastermodule.service;
+package com.example.tally.masterstock.service;
 
-import com.example.tally.mastermodule.entity.MasterStockItem;
-import com.example.tally.mastermodule.entity.MasterVendor;
+import com.example.tally.masterstock.entity.MasterStockItem;
+import com.example.tally.masterstock.entity.MasterVendor;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
