@@ -1,4 +1,4 @@
-package com.example.tally.mastermodule.entity;
+package com.example.tally.masterstock.entity;
 
 import lombok.Data;
 import javax.persistence.*;

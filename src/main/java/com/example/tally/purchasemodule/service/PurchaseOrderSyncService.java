@@ -1,9 +1,11 @@
 package com.example.tally.purchasemodule.service;
 
-import com.example.tally.mastermodule.entity.MasterStockItem;
-import com.example.tally.mastermodule.entity.MasterVendor;
-import com.example.tally.mastermodule.repository.MasterStockItemRepository;
-import com.example.tally.mastermodule.repository.MasterVendorRepository;
+import com.example.tally.masterstock.entity.MasterStockItem;
+import com.example.tally.masterstock.entity.MasterVendor;
+import com.example.tally.masterstock.entity.MasterWarehouse;
+import com.example.tally.masterstock.repository.MasterStockItemRepository;
+import com.example.tally.masterstock.repository.MasterVendorRepository;
+import com.example.tally.masterstock.repository.MasterWarehouseRepository;
 import com.example.tally.purchasemodule.entity.MasterPurchaseOrder;
 import com.example.tally.purchasemodule.repository.MasterPurchaseOrderRepository;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -38,6 +40,7 @@ public class PurchaseOrderSyncService {
     private final MasterStockItemRepository stockItemRepository;
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
+    private final MasterWarehouseRepository warehouseRepository;
 
     @Value("${tally.base-url:http://localhost:9000}")
     private String tallyBaseUrl;
@@ -53,8 +56,11 @@ public class PurchaseOrderSyncService {
                 MasterStockItem stockItem = stockItemRepository.findById(po.getStockItemId())
                         .orElseThrow(() -> new IllegalStateException("Stock Item not found: " + po.getStockItemId()));
 
+                MasterWarehouse warehouse = warehouseRepository.findById(po.getWarehouseId())
+                        .orElseThrow(() -> new IllegalStateException("Warehouse not found"));
+
                 calculateAndApplyTaxes(po, vendor, stockItem);
-                sendToTally(buildPurchaseOrderJson(po, vendor, stockItem));
+                sendToTally(buildPurchaseOrderJson(po, vendor, stockItem,warehouse));
 
                 po.setTallySyncStatus("SYNCED");
                 success++;
@@ -70,7 +76,7 @@ public class PurchaseOrderSyncService {
                 + ", failed: " + (pendingPOs.size() - success);
     }
 
-    private ObjectNode buildPurchaseOrderJson(MasterPurchaseOrder po, MasterVendor vendor, MasterStockItem stockItem) {
+    private ObjectNode buildPurchaseOrderJson(MasterPurchaseOrder po, MasterVendor vendor, MasterStockItem stockItem, MasterWarehouse warehouse) {
         ObjectNode root = objectMapper.createObjectNode();
 
         ArrayNode vars = root.putArray("static_variables");

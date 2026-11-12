@@ -19,7 +19,7 @@ public class MasterPurchaseOrder {
 
     private Long vendorId;
     private Long stockItemId;
-
+    private Long warehouseId;
     private Integer quantity;
     private BigDecimal ratePerItem;
 

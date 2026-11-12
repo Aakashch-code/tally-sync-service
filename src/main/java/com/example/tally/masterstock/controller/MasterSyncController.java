@@ -1,11 +1,11 @@
-package com.example.tally.mastermodule.controller;
+package com.example.tally.masterstock.controller;
 
-import com.example.tally.mastermodule.entity.MasterStockItem;
-import com.example.tally.mastermodule.entity.MasterVendor;
+import com.example.tally.masterstock.entity.MasterStockItem;
+import com.example.tally.masterstock.entity.MasterVendor;
 
-import com.example.tally.mastermodule.repository.MasterStockItemRepository;
-import com.example.tally.mastermodule.service.MasterSyncService;
-import com.example.tally.mastermodule.repository.MasterVendorRepository;
+import com.example.tally.masterstock.repository.MasterStockItemRepository;
+import com.example.tally.masterstock.service.MasterSyncService;
+import com.example.tally.masterstock.repository.MasterVendorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
